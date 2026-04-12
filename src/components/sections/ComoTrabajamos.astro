@@ -1,0 +1,87 @@
+---
+import { steps } from '../../data/site';
+---
+
+<section
+  id="como-trabajamos"
+  class="bg-paper py-24 md:py-32 lg:py-40 border-t border-ink/8 scroll-mt-20"
+>
+  <div class="px-6 md:px-12 lg:px-20 2xl:px-32 max-w-[120rem] mx-auto">
+
+    <!-- Section header -->
+    <div class="mb-16 md:mb-20" data-fade>
+      <p class="font-sans text-[11px] tracking-[0.3em] uppercase text-gold mb-4">
+        Cómo trabajamos
+      </p>
+      <h2 class="font-display text-[clamp(2rem,4vw,3.75rem)] leading-[1.05] text-ink max-w-md">
+        Un proceso<br />sin sorpresas.
+      </h2>
+    </div>
+
+    <!-- Desktop: horizontal 5-step flow -->
+    <div class="hidden lg:block relative">
+      <!-- Gold connector line -->
+      <div
+        aria-hidden="true"
+        class="absolute top-[1.2rem] left-[calc(10%+1.25rem)] right-[calc(10%+1.25rem)] h-px bg-gold/25"
+      ></div>
+
+      <div class="grid grid-cols-5 gap-6 xl:gap-10">
+        {steps.map((step, i) => (
+          <div
+            data-fade
+            style={`transition-delay: ${i * 90}ms;`}
+            class="relative"
+          >
+            <!-- Circle with number -->
+            <div class="w-10 h-10 rounded-full border border-gold/60 bg-paper flex items-center justify-center mb-7 relative z-10">
+              <span class="font-sans text-[9px] tracking-wider text-gold/80 font-medium">
+                {step.index}
+              </span>
+            </div>
+            <h3 class="font-display text-lg xl:text-xl text-ink mb-2 leading-tight">
+              {step.title}
+            </h3>
+            <p class="font-sans text-sm text-ink/50 leading-relaxed">
+              {step.body}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Mobile / tablet: vertical stack -->
+    <div class="lg:hidden relative">
+      <!-- Vertical gold line -->
+      <div
+        aria-hidden="true"
+        class="absolute left-5 top-0 bottom-4 w-px bg-gold/25"
+      ></div>
+
+      <div class="flex flex-col gap-0">
+        {steps.map((step, i) => (
+          <div
+            data-fade
+            style={`transition-delay: ${i * 80}ms;`}
+            class="flex gap-7 pb-10 relative z-10"
+          >
+            <div class="w-10 h-10 rounded-full border border-gold/60 bg-paper flex items-center justify-center flex-shrink-0">
+              <span class="font-sans text-[9px] tracking-wider text-gold/80 font-medium">
+                {step.index}
+              </span>
+            </div>
+            <div class="pt-2">
+              <h3 class="font-display text-xl text-ink mb-2 leading-tight">
+                {step.title}
+              </h3>
+              <p class="font-sans text-sm text-ink/50 leading-relaxed max-w-sm">
+                {step.body}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</section>

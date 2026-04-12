@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/sections/Nav.astro';
+import Hero from '../components/sections/Hero.astro';
+import Diferenciadores from '../components/sections/Diferenciadores.astro';
+import ComoTrabajamos from '../components/sections/ComoTrabajamos.astro';
+import Areas from '../components/sections/Areas.astro';
+import Clientes from '../components/sections/Clientes.astro';
+import Equipo from '../components/sections/Equipo.astro';
+import Contacto from '../components/sections/Contacto.astro';
+import Footer from '../components/sections/Footer.astro';
+---
+
+<BaseLayout
+  title="A un toque legal — Firma de Abogados Santiago, Chile"
+  description="Cisternas, Lorenzini & Saleh. Conocimiento jurídico de élite, entregado con la velocidad y precisión que su situación exige. Consulta directa en Santiago."
+>
+  <Nav />
+
+  <main id="main">
+    <Hero />
+    <Diferenciadores />
+    <ComoTrabajamos />
+    <Areas />
+    <Clientes />
+    <Equipo />
+    <Contacto />
+  </main>
+
+  <Footer />
+</BaseLayout>

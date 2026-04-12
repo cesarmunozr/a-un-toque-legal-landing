@@ -1,0 +1,91 @@
+---
+import { Image } from 'astro:assets';
+import { team } from '../../data/site';
+import type { TeamImageKey } from '../../data/site';
+
+import gonzaloImg from '../../assets/lawyers/gonzalo-cisternas.jpg';
+import juanPabloImg from '../../assets/lawyers/juan-pablo-lorenzini.jpg';
+import danielaImg from '../../assets/lawyers/daniela-saleh.jpg';
+import joseTImg from '../../assets/lawyers/jose-tomas-eyzaguirre.jpg';
+import marleneImg from '../../assets/lawyers/marlene-molero.jpg';
+
+import type { ImageMetadata } from 'astro';
+
+const images: Record<TeamImageKey, ImageMetadata> = {
+  'gonzalo-cisternas': gonzaloImg,
+  'juan-pablo-lorenzini': juanPabloImg,
+  'daniela-saleh': danielaImg,
+  'jose-tomas-eyzaguirre': joseTImg,
+  'marlene-molero': marleneImg,
+};
+---
+
+<section
+  id="equipo"
+  class="bg-paper py-14 md:py-20 border-t border-ink/8 scroll-mt-20"
+>
+  <div class="px-6 md:px-12 lg:px-20 2xl:px-32 max-w-[120rem] mx-auto">
+
+    <!-- Section header — minimal -->
+    <div class="mb-10 md:mb-12" data-fade>
+      <p class="font-sans text-[11px] tracking-[0.3em] uppercase text-gold mb-3">
+        El equipo
+      </p>
+      <h2 class="font-display text-2xl md:text-3xl text-ink">
+        Quiénes llevan tu caso.
+      </h2>
+    </div>
+
+    <!-- Compact card list -->
+    <div class="divide-y divide-ink/8">
+      {team.map((member, i) => (
+        <div
+          data-fade
+          style={`transition-delay: ${i * 60}ms;`}
+          class="grid grid-cols-[4.5rem_1fr] md:grid-cols-[5.5rem_1fr] gap-5 md:gap-8 py-8 md:py-9"
+        >
+          <!-- Small square photo -->
+          <div class="overflow-hidden aspect-square flex-shrink-0">
+            <Image
+              src={images[member.imageKey]}
+              alt={member.name}
+              width={112}
+              height={112}
+              class="w-full h-full object-cover object-top grayscale"
+              loading={i < 2 ? 'eager' : 'lazy'}
+              decoding="async"
+              format="webp"
+              quality={80}
+            />
+          </div>
+
+          <!-- Content -->
+          <div class="min-w-0">
+            <div class="flex flex-wrap items-baseline gap-x-3 gap-y-0.5 mb-2">
+              <h3 class="font-display text-lg md:text-xl text-ink leading-tight">
+                {member.name}
+              </h3>
+              <span class="font-sans text-[9px] tracking-[0.2em] uppercase text-gold">
+                {member.role}
+              </span>
+            </div>
+            <p class="font-sans text-[10px] text-ink/35 mb-3">
+              {member.university}
+            </p>
+            <p class="font-sans text-sm text-ink/60 leading-relaxed mb-4 max-w-2xl">
+              {member.bio}
+            </p>
+            <ul class="flex flex-wrap gap-x-4 gap-y-1">
+              {member.credentials.map((c) => (
+                <li class="font-sans text-[10px] text-ink/35 leading-relaxed">
+                  — {c}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
