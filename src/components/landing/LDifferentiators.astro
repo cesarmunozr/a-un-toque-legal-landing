@@ -1,0 +1,25 @@
+---
+import { differentiators } from "../../data/site";
+---
+
+<section class="bg-[#FAFAFA] py-24 px-8 md:px-12 lg:px-20" id="diferenciadores">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="font-bold text-[#1E1E1E] text-[clamp(1.5rem,3vw,2rem)] mb-16 tracking-tight">
+      Por qué elegirnos.
+    </h2>
+
+    <div class="grid grid-cols-3 md:grid-cols-1 gap-12 md:gap-10">
+      {
+        differentiators.map((d) => (
+          <div class="text-left">
+            <span class="block font-thin text-[#C1B7A7] leading-none" style="font-size: clamp(4rem, 8vw, 9rem);">
+              {d.numeral}
+            </span>
+            <h3 class="mt-3 font-bold text-[#1E1E1E] text-[1.1rem] leading-snug">{d.title}</h3>
+            <p class="mt-3 font-light text-[#807662] text-[0.9rem] leading-relaxed">{d.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

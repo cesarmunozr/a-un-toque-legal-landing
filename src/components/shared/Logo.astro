@@ -1,0 +1,25 @@
+---
+interface Props {
+  variant: "dark" | "light" | "sand";
+  maxWidth?: number;
+  class?: string;
+}
+
+const { variant, maxWidth = 480, class: cls = "" } = Astro.props;
+
+// NOTE: Leading space in filenames is intentional — this is the ONLY place these paths are defined
+const files: Record<string, string> = {
+  dark: "/logos/ 7.svg",   // white logo on dark (#1E1E1E) backgrounds
+  light: "/logos/ 6.svg",  // dark logo on light (bone/white) backgrounds
+  sand: "/logos/ 8.svg",   // logo on #E0E0E0 backgrounds
+};
+---
+
+<img
+  src={files[variant]}
+  alt="A un toque legal"
+  class={cls}
+  style={`max-width: ${maxWidth}px; width: 100%;`}
+  loading="eager"
+  decoding="async"
+/>

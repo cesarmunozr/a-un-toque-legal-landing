@@ -1,0 +1,55 @@
+---
+import { differentiators } from "../../data/site";
+---
+
+<section
+  class="fp-section bg-[#FAFAFA] flex items-center justify-center"
+  data-section="2"
+  aria-hidden="true"
+  id="s03-differentiators"
+>
+  <div
+    class="w-full max-w-6xl px-8 md:px-12 lg:px-20 py-16 md:py-8 overflow-y-auto"
+    data-no-nav
+  >
+    <div class="grid grid-cols-3 md:grid-cols-1 gap-12 md:gap-10">
+      {
+        differentiators.map((d) => (
+          <div class="text-left" data-card style="opacity: 0; transform: translateY(30px);">
+            <span class="block font-thin text-[#C1B7A7] leading-none" style="font-size: clamp(4rem, 8vw, 9rem);">
+              {d.numeral}
+            </span>
+            <h3 class="mt-3 font-bold text-[#1E1E1E] text-[1.1rem] leading-snug">{d.title}</h3>
+            <p class="mt-3 font-light text-[#807662] text-[0.9rem] leading-relaxed">{d.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  import { animate as _animate, stagger } from "motion";
+
+  type AnimFn = (
+    el: Element | NodeListOf<Element> | HTMLElement | null,
+    keyframes: Record<string, unknown>,
+    options?: Record<string, unknown>
+  ) => { then: (fn: () => void) => void };
+  const animate = _animate as unknown as AnimFn;
+
+  const section = document.querySelector("[data-section='2']");
+  section?.addEventListener(
+    "fp:enter",
+    () => {
+      const easing: [number, number, number, number] = [0.76, 0, 0.24, 1];
+      const cards = document.querySelectorAll("[data-section='2'] [data-card]");
+      animate(
+        cards,
+        { opacity: [0, 1], transform: ["translateY(30px)", "translateY(0px)"] },
+        { duration: 0.8, delay: stagger(0.15), easing }
+      );
+    },
+    { once: true }
+  );
+</script>

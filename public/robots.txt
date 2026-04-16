@@ -1,3 +1,5 @@
 User-agent: *
-Allow: /
+Allow: /landing
+Disallow: /
+
 Sitemap: https://auntoquelegal.cl/sitemap.xml

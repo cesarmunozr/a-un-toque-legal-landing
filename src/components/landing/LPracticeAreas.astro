@@ -1,0 +1,31 @@
+---
+import { practiceAreas } from "../../data/site";
+---
+
+<section class="bg-[#FAFAFA] py-24 px-8 md:px-12 lg:px-20" id="areas">
+  <div class="max-w-4xl mx-auto">
+    <h2 class="font-bold text-[#1E1E1E] text-[clamp(1.5rem,3vw,2rem)] mb-16 tracking-tight">
+      Áreas de práctica.
+    </h2>
+
+    <div class="space-y-0">
+      {
+        practiceAreas.map((area) => (
+          <article class="py-8 border-b border-[#807662]/30 last:border-b-0">
+            <div class="flex items-baseline gap-4 mb-3">
+              <span class="font-light text-[#807662] text-[0.75rem] tracking-widest shrink-0">
+                {area.numeral}
+              </span>
+              <h3 class="font-semibold text-[#1E1E1E] text-[clamp(1.1rem,2.5vw,1.3rem)] leading-snug">
+                {area.area}
+              </h3>
+            </div>
+            <p class="font-light text-[#807662] text-[0.9rem] leading-relaxed pl-8">
+              {area.description}
+            </p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

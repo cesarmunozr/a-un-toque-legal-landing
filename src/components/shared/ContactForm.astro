@@ -1,0 +1,179 @@
+---
+interface Props {
+  darkMode?: boolean;
+}
+const { darkMode = true } = Astro.props;
+
+const inputClass = darkMode
+  ? "w-full bg-transparent border-0 border-b border-[#807662] text-[#E0E0E0] font-light text-sm py-2.5 px-0 focus:outline-none focus:border-[#C1B7A7] placeholder-transparent caret-[#807662] transition-colors"
+  : "w-full bg-transparent border-0 border-b border-[#807662] text-[#1E1E1E] font-light text-sm py-2.5 px-0 focus:outline-none focus:border-[#1E1E1E] placeholder-transparent caret-[#807662] transition-colors";
+
+// Default = floated (-top-4). Only drops down when field is empty (peer-placeholder-shown).
+const labelClass = "absolute left-0 -top-4 text-[0.65rem] font-light text-[#807662] tracking-wider uppercase transition-all duration-200 pointer-events-none peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-[0.7rem] peer-focus:-top-4 peer-focus:text-[0.65rem]";
+
+const textareaClass = darkMode
+  ? "w-full bg-transparent border-0 border-b border-[#807662] text-[#E0E0E0] font-light text-sm py-2.5 px-0 focus:outline-none focus:border-[#C1B7A7] placeholder-transparent caret-[#807662] transition-colors resize-none"
+  : "w-full bg-transparent border-0 border-b border-[#807662] text-[#1E1E1E] font-light text-sm py-2.5 px-0 focus:outline-none focus:border-[#1E1E1E] placeholder-transparent caret-[#807662] transition-colors resize-none";
+---
+
+<form
+  action="mailto:contacto@auntoquelegal.cl"
+  method="post"
+  enctype="multipart/form-data"
+  class="flex flex-col gap-5"
+>
+  <!-- Nombre + Razón Social -->
+  <div class="grid grid-cols-2 gap-5">
+    <div class="relative">
+      <input
+        type="text"
+        name="nombre"
+        id="nombre"
+        placeholder="Nombre"
+        required
+        class={`peer ${inputClass}`}
+        style="min-height: 44px;"
+      />
+      <label for="nombre" class={labelClass}>Nombre</label>
+    </div>
+    <div class="relative">
+      <input
+        type="text"
+        name="razon_social"
+        id="razon_social"
+        placeholder="Razón Social"
+        class={`peer ${inputClass}`}
+        style="min-height: 44px;"
+      />
+      <label for="razon_social" class={labelClass}>Razón Social <span class="normal-case tracking-normal opacity-60">(opcional)</span></label>
+    </div>
+  </div>
+
+  <!-- Teléfono + Email -->
+  <div class="grid grid-cols-2 gap-5">
+    <div class="relative">
+      <input
+        type="tel"
+        name="telefono"
+        id="telefono"
+        placeholder="Teléfono"
+        class={`peer ${inputClass}`}
+        style="min-height: 44px;"
+        autocomplete="tel"
+      />
+      <label for="telefono" class={labelClass}>Teléfono</label>
+    </div>
+    <div class="relative">
+      <input
+        type="email"
+        name="email"
+        id="email"
+        placeholder="Email"
+        required
+        class={`peer ${inputClass}`}
+        style="min-height: 44px;"
+      />
+      <label for="email" class={labelClass}>Email</label>
+    </div>
+  </div>
+
+  <!-- Su consulta (grande) -->
+  <div class="relative mt-2">
+    <textarea
+      name="consulta"
+      id="consulta"
+      rows="6"
+      placeholder="Consulta"
+      required
+      class={`peer ${textareaClass}`}
+    ></textarea>
+    <label for="consulta" class={labelClass}>Su consulta</label>
+  </div>
+
+  <!-- Adjuntar documentos -->
+  <div>
+    <label
+      for="documentos"
+      class={`flex items-center gap-3 border-b pb-2.5 cursor-pointer group transition-colors duration-200 ${darkMode ? "border-[#807662] hover:border-[#C1B7A7]" : "border-[#807662] hover:border-[#1E1E1E]"}`}
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class={`shrink-0 transition-colors ${darkMode ? "text-[#807662] group-hover:text-[#C1B7A7]" : "text-[#807662] group-hover:text-[#1E1E1E]"}`}
+      >
+        <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/>
+      </svg>
+      <span
+        id="file-label"
+        class={`font-light text-[0.7rem] tracking-wider uppercase transition-colors ${darkMode ? "text-[#807662] group-hover:text-[#C1B7A7]" : "text-[#807662] group-hover:text-[#1E1E1E]"}`}
+      >
+        Adjuntar documentos
+      </span>
+    </label>
+    <input
+      type="file"
+      name="documentos"
+      id="documentos"
+      multiple
+      accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+      class="sr-only"
+    />
+  </div>
+
+  <button
+    type="submit"
+    class="mt-2 w-full border border-[#C1B7A7] text-[#C1B7A7] font-semibold text-sm tracking-widest uppercase py-4 px-8 hover:bg-[#C1B7A7] hover:text-[#1E1E1E] transition-all duration-300 cursor-pointer"
+    style="min-height: 44px;"
+  >
+    Enviar consulta
+  </button>
+
+  <p class="text-[0.65rem] font-light text-[#807662] leading-relaxed">
+    Su consulta es confidencial. Respondemos dentro de 24 horas hábiles.
+    Al enviar acepta que sus datos sean utilizados exclusivamente para atender su consulta.
+  </p>
+</form>
+
+<script>
+  // ── Teléfono: prefijo +56 no eliminable ─────────────────────────────────────
+  const PREFIX = "+56 ";
+  const tel = document.getElementById("telefono") as HTMLInputElement;
+
+  tel?.addEventListener("focus", () => {
+    if (!tel.value) {
+      tel.value = PREFIX;
+      tel.setSelectionRange(PREFIX.length, PREFIX.length);
+    }
+  });
+
+  tel?.addEventListener("input", () => {
+    if (!tel.value.startsWith(PREFIX)) {
+      tel.value = PREFIX;
+      tel.setSelectionRange(PREFIX.length, PREFIX.length);
+    }
+  });
+
+  tel?.addEventListener("blur", () => {
+    if (tel.value === PREFIX) tel.value = "";
+  });
+
+  // ── Adjuntar documentos ──────────────────────────────────────────────────────
+  const fileInput = document.getElementById("documentos") as HTMLInputElement;
+  const fileLabel = document.getElementById("file-label");
+  fileInput?.addEventListener("change", () => {
+    if (!fileLabel) return;
+    const count = fileInput.files?.length ?? 0;
+    fileLabel.textContent = count === 0
+      ? "Adjuntar documentos"
+      : count === 1
+        ? fileInput.files![0].name
+        : `${count} archivos adjuntos`;
+  });
+</script>

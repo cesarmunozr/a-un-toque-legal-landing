@@ -232,3 +232,30 @@ export const contact: ContactInfo = {
   address:
     "Candelaria Goyenechea 3900, oficina Z4, \nVitacura, Santiago — Chile",
 };
+
+// ─── Client logos ─────────────────────────────────────────────────────────────
+
+export interface ClientLogo {
+  key: string;
+  name: string;
+  sector: string;
+}
+
+export const clientLogos: ClientLogo[] = [
+  { key: "anfp", name: "ANFP", sector: "Deporte profesional" },
+  { key: "betterfood_chile", name: "BetterFood Chile", sector: "Alimentación & FoodTech" },
+  { key: "clearchannel_chile", name: "Clear Channel Chile", sector: "Publicidad exterior" },
+  { key: "comudef_laflorida_municipalidad", name: "Municipalidad de La Florida", sector: "Sector público" },
+  { key: "globalchannel_chile", name: "Global Channel Chile", sector: "Medios & Distribución" },
+];
+
+// ─── Site metadata ────────────────────────────────────────────────────────────
+
+export const siteMeta = {
+  url: "https://auntoquelegal.cl",
+  name: "A un toque legal",
+  firm: "Cisternas, Lorenzini & Saleh",
+  defaultTitle: "A un toque legal — Firma de Abogados Santiago, Chile",
+  defaultDescription:
+    "Cisternas, Lorenzini & Saleh. Firma de abogados en Santiago, Chile. Litigación civil, libre competencia, derecho laboral, familia. Contacto en 24 horas.",
+};

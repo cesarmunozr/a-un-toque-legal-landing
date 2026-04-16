@@ -1,0 +1,65 @@
+---
+import { practiceAreas } from "../../data/site";
+---
+
+<section
+  class="fp-section bg-[#1E1E1E] flex items-center justify-center"
+  data-section="3"
+  aria-hidden="true"
+  id="s04-practice"
+>
+  <div class="w-full max-w-4xl px-8 md:px-10 overflow-y-auto fp-section-scroll" data-no-nav>
+    <ul class="divide-y divide-[#807662]/30" role="list">
+      {
+        practiceAreas.map((area) => (
+          <li
+            class="group flex items-start md:items-center gap-4 md:gap-6 py-5 md:py-6 transition-colors duration-300 hover:bg-[#807662]/10 px-4 -mx-4 cursor-default"
+            data-area-row
+            style="opacity: 0; transform: translateX(30px);"
+          >
+            <span class="font-light text-[#807662] text-[0.75rem] tracking-widest shrink-0 pt-1 md:pt-0">
+              {area.numeral}
+            </span>
+            <div class="flex-1 min-w-0">
+              <span class="font-semibold text-[#E0E0E0] text-[clamp(1rem,2.5vw,1.3rem)] leading-snug block">
+                {area.area}
+              </span>
+              <span class="font-light text-[#C1B7A7] text-[0.85rem] leading-relaxed block mt-1">
+                {area.description}
+              </span>
+            </div>
+            <span class="font-light text-[#807662] text-lg shrink-0 group-hover:translate-x-[6px] transition-transform duration-300 self-center">
+              &rarr;
+            </span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<script>
+  import { animate as _animate, stagger } from "motion";
+
+  type AnimFn = (
+    el: Element | NodeListOf<Element> | HTMLElement | null,
+    keyframes: Record<string, unknown>,
+    options?: Record<string, unknown>
+  ) => { then: (fn: () => void) => void };
+  const animate = _animate as unknown as AnimFn;
+
+  const section = document.querySelector("[data-section='3']");
+  section?.addEventListener(
+    "fp:enter",
+    () => {
+      const easing: [number, number, number, number] = [0.76, 0, 0.24, 1];
+      const rows = document.querySelectorAll("[data-section='3'] [data-area-row]");
+      animate(
+        rows,
+        { opacity: [0, 1], transform: ["translateX(30px)", "translateX(0px)"] },
+        { duration: 0.7, delay: stagger(0.08), easing }
+      );
+    },
+    { once: true }
+  );
+</script>

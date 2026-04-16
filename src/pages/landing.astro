@@ -1,0 +1,79 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import TopBannerBack from "../components/landing/TopBannerBack.astro";
+import LHero from "../components/landing/LHero.astro";
+import LDifferentiators from "../components/landing/LDifferentiators.astro";
+import LHowWeWork from "../components/landing/LHowWeWork.astro";
+import LPracticeAreas from "../components/landing/LPracticeAreas.astro";
+import LClients from "../components/landing/LClients.astro";
+import LTeam from "../components/landing/LTeam.astro";
+import LContact from "../components/landing/LContact.astro";
+import LFooter from "../components/landing/LFooter.astro";
+import { contact, siteMeta } from "../data/site";
+
+const jsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      name: "A un toque legal — Cisternas, Lorenzini & Saleh",
+      url: "https://auntoquelegal.cl",
+      logo: "https://auntoquelegal.cl/logos/%20 6.svg",
+      sameAs: [],
+    },
+    {
+      "@type": "LegalService",
+      name: "Cisternas, Lorenzini & Saleh",
+      alternateName: "A un toque legal",
+      url: "https://auntoquelegal.cl/landing",
+      telephone: contact.phone,
+      email: contact.email,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "Candelaria Goyenechea 3900, oficina Z4",
+        addressLocality: "Vitacura",
+        addressRegion: "Región Metropolitana",
+        addressCountry: "CL",
+      },
+      areaServed: {
+        "@type": "Country",
+        name: "Chile",
+      },
+      serviceType: [
+        "Litigación Civil",
+        "Libre Competencia",
+        "Derecho Laboral",
+        "Derecho de Familia",
+        "Tribunales Superiores",
+      ],
+      priceRange: "$$$",
+      openingHours: "Mo-Fr 09:00-18:00",
+    },
+  ],
+});
+---
+
+<BaseLayout
+  title={siteMeta.defaultTitle}
+  description={siteMeta.defaultDescription}
+  robots="index, follow"
+  canonical="https://auntoquelegal.cl/landing"
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json" set:html={jsonLd} />
+  </Fragment>
+
+  <TopBannerBack />
+
+  <main id="main">
+    <LHero />
+    <LDifferentiators />
+    <LHowWeWork />
+    <LPracticeAreas />
+    <LClients />
+    <LTeam />
+    <LContact />
+  </main>
+
+  <LFooter />
+</BaseLayout>

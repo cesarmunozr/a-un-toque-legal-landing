@@ -1,0 +1,75 @@
+---
+import { Image } from "astro:assets";
+import { testimonials } from "../../data/site";
+
+import anfpImg from "../../assets/clients/anfp.png";
+import betterfoodImg from "../../assets/clients/betterfood_chile.jpeg";
+import clearchannelImg from "../../assets/clients/clearchannel_chile.png";
+import comudefImg from "../../assets/clients/comudef_laflorida_municipalidad.jpg";
+import globalchannelImg from "../../assets/clients/globalchannel_chile.png";
+
+const clientImages = [
+  { src: anfpImg, name: "ANFP" },
+  { src: betterfoodImg, name: "BetterFood Chile" },
+  { src: clearchannelImg, name: "Clear Channel Chile" },
+  { src: comudefImg, name: "Municipalidad de La Florida" },
+  { src: globalchannelImg, name: "Global Channel Chile" },
+];
+---
+
+<section class="bg-[#E0E0E0] py-24 px-8 md:px-12 lg:px-20" id="clientes">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="font-bold text-[#1E1E1E] text-[clamp(1.5rem,3vw,2rem)] mb-16 tracking-tight">
+      Lo que dicen nuestros clientes.
+    </h2>
+
+    <!-- Testimonials -->
+    <div class="grid grid-cols-3 md:grid-cols-1 gap-10 mb-20">
+      {
+        testimonials.map((t) => (
+          <blockquote class="text-left">
+            <span
+              class="block font-black text-[#C1B7A7] leading-none select-none"
+              style="font-size: clamp(3rem, 5vw, 5rem);"
+              aria-hidden="true"
+            >
+              &ldquo;
+            </span>
+            <p class="font-light italic text-[#1E1E1E] text-[0.95rem] leading-relaxed -mt-2">
+              {t.quote}
+            </p>
+            <footer class="mt-4">
+              <cite class="not-italic">
+                <span class="block font-semibold text-[#1E1E1E] text-[0.8rem] tracking-[0.12em] uppercase">
+                  {t.author}
+                </span>
+                <span class="block font-light text-[#807662] text-[0.75rem] mt-0.5">{t.role}</span>
+              </cite>
+            </footer>
+          </blockquote>
+        ))
+      }
+    </div>
+
+    <!-- Client logos -->
+    <div class="border-t border-[#807662]/30 pt-12">
+      <div class="flex flex-wrap items-center justify-center gap-10 md:gap-8">
+        {
+          clientImages.map((client) => (
+            <Image
+              src={client.src}
+              alt={client.name}
+              height={56}
+              class="h-12 md:h-10 w-auto object-contain"
+              loading="lazy"
+            />
+          ))
+        }
+      </div>
+      <p class="mt-6 font-light text-[0.7rem] text-[#807662] text-center tracking-wider">
+        Deporte profesional &middot; Alimentación &amp; FoodTech &middot; Publicidad exterior &middot;
+        Sector público &middot; Medios &amp; Distribución
+      </p>
+    </div>
+  </div>
+</section>

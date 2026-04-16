@@ -1,0 +1,44 @@
+---
+import ContactForm from "../shared/ContactForm.astro";
+import { contact } from "../../data/site";
+---
+
+<section class="bg-[#FAFAFA] py-24 px-8 md:px-12 lg:px-20" id="contacto">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="font-bold text-[#1E1E1E] text-[clamp(1.5rem,3vw,2rem)] mb-16 tracking-tight">
+      Contáctenos.
+    </h2>
+
+    <div class="grid grid-cols-2 md:grid-cols-1 gap-16 md:gap-10">
+      <!-- Contact info -->
+      <div>
+        <div class="border-l-2 border-[#807662] pl-6 space-y-4">
+          <p class="font-light text-[#1E1E1E] text-[0.9rem] leading-relaxed whitespace-pre-line">
+            {contact.address}
+          </p>
+          <a
+            href={`tel:${contact.phone.replace(/\s/g, "")}`}
+            class="block font-light text-[#807662] text-[0.9rem] hover:text-[#1E1E1E] transition-colors"
+          >
+            {contact.phone}
+          </a>
+          <a
+            href={`mailto:${contact.email}`}
+            class="block font-light text-[#807662] text-[0.9rem] hover:text-[#1E1E1E] transition-colors"
+          >
+            {contact.email}
+          </a>
+        </div>
+
+        <p class="mt-8 font-light italic text-[#807662] text-[0.85rem]">
+          Respondemos en menos de 24 horas hábiles.
+        </p>
+      </div>
+
+      <!-- Form -->
+      <div>
+        <ContactForm darkMode={false} />
+      </div>
+    </div>
+  </div>
+</section>

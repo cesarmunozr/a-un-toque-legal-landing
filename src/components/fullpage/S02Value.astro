@@ -1,0 +1,93 @@
+---
+import Logo from "../shared/Logo.astro";
+---
+
+<section
+  class="fp-section bg-[#E0E0E0] flex flex-col items-center justify-center relative"
+  data-section="1"
+  aria-hidden="true"
+  id="s02-value"
+>
+  <div class="absolute top-8 left-8">
+    <Logo variant="sand" maxWidth={160} />
+  </div>
+
+  <div class="text-center max-w-[700px] px-8 md:px-12">
+    <h2
+      class="font-black text-[#1E1E1E] leading-[0.92] tracking-tight text-[clamp(2.5rem,7vw,5rem)]"
+      data-animate-headline
+      style="opacity: 0;"
+    >
+      Resolución legal de primer nivel. Siempre a un toque.
+    </h2>
+
+    <p
+      class="mt-6 font-light text-[#807662] text-[clamp(0.95rem,2vw,1.1rem)] max-w-[560px] mx-auto"
+      data-animate-sub
+      style="opacity: 0;"
+    >
+      Conocimiento jurídico de élite, entregado con la velocidad y precisión
+      que su situación exige.
+    </p>
+
+    <button
+      type="button"
+      class="mt-10 border border-[#1E1E1E] text-[#1E1E1E] font-semibold text-sm tracking-[0.12em] uppercase px-10 py-4 hover:bg-[#1E1E1E] hover:text-[#E0E0E0] transition-all duration-300 cursor-pointer"
+      style="min-height: 44px; opacity: 0;"
+      data-nav-to="6"
+      data-animate-cta
+    >
+      Consulta directa &rarr;
+    </button>
+  </div>
+</section>
+
+<script>
+  import { animate as _animate, stagger } from "motion";
+
+  type AnimFn = (
+    el: Element | NodeListOf<Element> | HTMLElement | null,
+    keyframes: Record<string, unknown>,
+    options?: Record<string, unknown>
+  ) => { then: (fn: () => void) => void };
+  const animate = _animate as unknown as AnimFn;
+
+  // CTA navigates to S07 (index 6)
+  const ctaBtn = document.querySelector("[data-nav-to='6']");
+  ctaBtn?.addEventListener("click", () => {
+    (window as Window & { __fpNavigateTo?: (i: number) => void }).__fpNavigateTo?.(6);
+  });
+
+  const section = document.querySelector("[data-section='1']");
+  section?.addEventListener(
+    "fp:enter",
+    () => {
+      const easing: [number, number, number, number] = [0.76, 0, 0.24, 1];
+
+      const headline = document.querySelector("[data-animate-headline]") as HTMLElement;
+      const sub = document.querySelector("[data-animate-sub]");
+      const cta = document.querySelector("[data-animate-cta]");
+
+      if (headline) {
+        headline.style.opacity = "1";
+        const words = headline.textContent?.trim().split(" ") ?? [];
+        headline.innerHTML = words
+          .map((w) => `<span style="display:inline-block"><span data-word style="display:inline-block;opacity:0;transform:translateY(20px)">${w}</span></span>`)
+          .join(" ");
+        const wordEls = headline.querySelectorAll("[data-word]");
+        animate(
+          wordEls,
+          { opacity: [0, 1], transform: ["translateY(20px)", "translateY(0px)"] },
+          { duration: 0.7, delay: stagger(0.07), easing }
+        );
+      }
+      if (sub) {
+        animate(sub, { opacity: [0, 1] }, { duration: 0.6, delay: 0.5, easing: "ease-out" });
+      }
+      if (cta) {
+        animate(cta, { opacity: [0, 1] }, { duration: 0.6, delay: 0.7, easing: "ease-out" });
+      }
+    },
+    { once: true }
+  );
+</script>

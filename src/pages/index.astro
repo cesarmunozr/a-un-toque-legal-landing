@@ -1,31 +1,44 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Nav from '../components/sections/Nav.astro';
-import Hero from '../components/sections/Hero.astro';
-import Diferenciadores from '../components/sections/Diferenciadores.astro';
-import ComoTrabajamos from '../components/sections/ComoTrabajamos.astro';
-import Areas from '../components/sections/Areas.astro';
-import Clientes from '../components/sections/Clientes.astro';
-import Equipo from '../components/sections/Equipo.astro';
-import Contacto from '../components/sections/Contacto.astro';
-import Footer from '../components/sections/Footer.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import S01Intro from "../components/fullpage/S01Intro.astro";
+import S02Value from "../components/fullpage/S02Value.astro";
+import S03Differentiators from "../components/fullpage/S03Differentiators.astro";
+import S04Practice from "../components/fullpage/S04Practice.astro";
+import S05Clients from "../components/fullpage/S05Clients.astro";
+import S06Team from "../components/fullpage/S06Team.astro";
+import S07Contact from "../components/fullpage/S07Contact.astro";
 ---
 
 <BaseLayout
-  title="A un toque legal — Firma de Abogados Santiago, Chile"
-  description="Cisternas, Lorenzini & Saleh. Conocimiento jurídico de élite, entregado con la velocidad y precisión que su situación exige. Consulta directa en Santiago."
+  title="A un toque legal — Cisternas, Lorenzini & Saleh"
+  description="Firma de abogados en Santiago, Chile. Litigación civil, libre competencia, derecho laboral, familia."
+  robots="noindex, nofollow"
 >
-  <Nav />
-
-  <main id="main">
-    <Hero />
-    <Diferenciadores />
-    <ComoTrabajamos />
-    <Areas />
-    <Clientes />
-    <Equipo />
-    <Contacto />
+  <!-- Fullpage track -->
+  <main id="fp-track" class="fp-track">
+    <S01Intro />
+    <S02Value />
+    <S03Differentiators />
+    <S04Practice />
+    <S05Clients />
+    <S06Team />
+    <S07Contact />
   </main>
 
-  <Footer />
+  <!-- Progress bar (right edge) -->
+  <div
+    class="fixed right-0 top-0 w-[2px] h-dvh z-50 bg-[#807662]/20"
+    aria-hidden="true"
+  >
+    <div
+      data-progress-fill
+      class="w-full bg-[#807662] transition-none"
+      style="height: 0%;"
+    ></div>
+  </div>
+
+  <!-- Fullpage engine -->
+  <script>
+    import "../scripts/fullpage.ts";
+  </script>
 </BaseLayout>

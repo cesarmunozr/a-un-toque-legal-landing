@@ -1,0 +1,66 @@
+---
+import Logo from "../shared/Logo.astro";
+---
+
+<section
+  class="fp-section bg-[#1E1E1E] flex flex-col items-center justify-center"
+  data-section="0"
+  aria-hidden="false"
+  id="s01-intro"
+>
+  <div class="text-center px-8" data-animate-intro style="opacity: 0;">
+    <Logo
+      variant="dark"
+      maxWidth={480}
+      class="w-[70vw] sm:w-[280px] md:w-[480px] mx-auto"
+    />
+    <p
+      class="mt-8 text-[11px] font-light tracking-[0.3em] text-[#C1B7A7] uppercase"
+      data-animate-firm
+      style="opacity: 0; transform: translateY(10px);"
+    >
+      Cisternas &middot; Lorenzini &middot; Saleh &middot; Santiago, Chile
+    </p>
+  </div>
+
+  <p
+    class="absolute left-1/2 -translate-x-1/2 text-[11px] font-light tracking-[0.2em] text-[#C1B7A7]"
+    style="bottom: calc(env(safe-area-inset-bottom) + 2rem);"
+    data-hint
+  >
+    &darr; toca para continuar
+  </p>
+</section>
+
+<script>
+  import { animate as _animate } from "motion";
+
+  type AnimFn = (
+    el: Element | NodeListOf<Element> | HTMLElement | null,
+    keyframes: Record<string, unknown>,
+    options?: Record<string, unknown>
+  ) => { then: (fn: () => void) => void };
+  const animate = _animate as unknown as AnimFn;
+
+  const section = document.querySelector("[data-section='0']");
+  section?.addEventListener(
+    "fp:enter",
+    () => {
+      const easing: [number, number, number, number] = [0.76, 0, 0.24, 1];
+      const intro = document.querySelector("[data-animate-intro]");
+      const firm = document.querySelector("[data-animate-firm]");
+
+      if (intro) {
+        animate(intro, { opacity: [0, 1] }, { duration: 1.2, delay: 0.2, easing });
+      }
+      if (firm) {
+        animate(
+          firm,
+          { opacity: [0, 1], transform: ["translateY(10px)", "translateY(0px)"] },
+          { duration: 0.6, delay: 0.8, easing }
+        );
+      }
+    },
+    { once: true }
+  );
+</script>

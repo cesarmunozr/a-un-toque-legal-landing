@@ -1,0 +1,106 @@
+---
+import { Image } from "astro:assets";
+import { testimonials } from "../../data/site";
+
+import anfpImg from "../../assets/clients/anfp.png";
+import betterfoodImg from "../../assets/clients/betterfood_chile.jpeg";
+import clearchannelImg from "../../assets/clients/clearchannel_chile.png";
+import comudefImg from "../../assets/clients/comudef_laflorida_municipalidad.jpg";
+import globalchannelImg from "../../assets/clients/globalchannel_chile.png";
+
+const clientImages = [
+  { src: anfpImg, name: "ANFP" },
+  { src: betterfoodImg, name: "BetterFood Chile" },
+  { src: clearchannelImg, name: "Clear Channel Chile" },
+  { src: comudefImg, name: "Municipalidad de La Florida" },
+  { src: globalchannelImg, name: "Global Channel Chile" },
+];
+---
+
+<section
+  class="fp-section bg-[#E0E0E0] flex flex-col"
+  data-section="4"
+  aria-hidden="true"
+  id="s05-clients"
+>
+  <!-- Testimonials — top half -->
+  <div
+    class="flex-1 flex items-center px-8 md:px-10 lg:px-20 overflow-y-auto"
+    data-no-nav
+    style="min-height: 50%;"
+  >
+    <div class="grid grid-cols-3 md:grid-cols-1 gap-8 w-full max-w-6xl mx-auto py-8">
+      {
+        testimonials.map((t) => (
+          <blockquote class="text-left" data-testimonial style="opacity: 0;">
+            <span
+              class="block font-black text-[#C1B7A7] leading-none select-none"
+              style="font-size: clamp(3rem, 6vw, 6rem);"
+              aria-hidden="true"
+            >
+              &ldquo;
+            </span>
+            <p class="font-light italic text-[#1E1E1E] text-[clamp(0.85rem,1.5vw,1rem)] leading-relaxed -mt-2">
+              {t.quote}
+            </p>
+            <footer class="mt-4">
+              <cite class="not-italic">
+                <span class="block font-semibold text-[#1E1E1E] text-[0.8rem] tracking-[0.15em] uppercase">
+                  {t.author}
+                </span>
+                <span class="block font-light text-[#807662] text-[0.75rem] mt-0.5">{t.role}</span>
+              </cite>
+            </footer>
+          </blockquote>
+        ))
+      }
+    </div>
+  </div>
+
+  <!-- Client logos — bottom half -->
+  <div class="border-t border-[#807662]/20 px-8 md:px-10 lg:px-20 py-8 flex flex-col items-center justify-center">
+    <div class="flex flex-wrap items-center justify-center gap-8 md:gap-6">
+      {
+        clientImages.map((client) => (
+          <Image
+            src={client.src}
+            alt={client.name}
+            height={48}
+            class="h-10 md:h-8 w-auto object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-default"
+            loading="lazy"
+          />
+        ))
+      }
+    </div>
+    <p class="mt-4 font-light text-[0.7rem] text-[#807662] text-center tracking-wider">
+      Deporte profesional &middot; Alimentación &amp; FoodTech &middot; Publicidad exterior &middot;
+      Sector público &middot; Medios &amp; Distribución
+    </p>
+  </div>
+</section>
+
+<script>
+  import { animate as _animate, stagger } from "motion";
+
+  type AnimFn = (
+    el: Element | NodeListOf<Element> | HTMLElement | null,
+    keyframes: Record<string, unknown>,
+    options?: Record<string, unknown>
+  ) => { then: (fn: () => void) => void };
+  const animate = _animate as unknown as AnimFn;
+
+  const section = document.querySelector("[data-section='4']");
+  section?.addEventListener(
+    "fp:enter",
+    () => {
+      const easing: [number, number, number, number] = [0.76, 0, 0.24, 1];
+      const items = document.querySelectorAll("[data-section='4'] [data-testimonial]");
+      animate(
+        items,
+        { opacity: [0, 1], transform: ["translateY(20px)", "translateY(0px)"] },
+        { duration: 0.7, delay: stagger(0.15), easing }
+      );
+    },
+    { once: true }
+  );
+</script>

@@ -1,0 +1,123 @@
+---
+import { Image } from "astro:assets";
+import { team } from "../../data/site";
+
+import gonzaloImg from "../../assets/lawyers/gonzalo-cisternas.jpg";
+import jpImg from "../../assets/lawyers/juan-pablo-lorenzini.jpg";
+import danielaImg from "../../assets/lawyers/daniela-saleh.jpg";
+import joseImg from "../../assets/lawyers/jose-tomas-eyzaguirre.jpg";
+import marleneImg from "../../assets/lawyers/marlene-molero.jpg";
+
+const lawyerImages: Record<string, ImageMetadata> = {
+  "gonzalo-cisternas": gonzaloImg,
+  "juan-pablo-lorenzini": jpImg,
+  "daniela-saleh": danielaImg,
+  "jose-tomas-eyzaguirre": joseImg,
+  "marlene-molero": marleneImg,
+};
+---
+
+<section
+  class="fp-section bg-[#FAFAFA] flex flex-col items-center justify-center px-8 md:px-10"
+  data-section="5"
+  aria-hidden="true"
+  id="s06-team"
+>
+  <h2
+    class="font-bold text-[#1E1E1E] text-[clamp(1.5rem,3vw,2rem)] mb-8 md:mb-6 tracking-tight"
+    data-team-headline
+    style="opacity: 0;"
+  >
+    Quiénes llevan tu caso.
+  </h2>
+
+  <!-- Desktop: horizontal row -->
+  <div class="hidden md:flex gap-6 w-full max-w-6xl justify-center">
+    {
+      team.map((member) => (
+        <div class="flex-1 max-w-[200px] text-center group" data-team-card style="opacity: 0;">
+          <div class="overflow-hidden aspect-square mb-3">
+            <Image
+              src={lawyerImages[member.imageKey]!}
+              alt={member.name}
+              width={240}
+              height={240}
+              class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
+              loading="lazy"
+            />
+          </div>
+          <p class="font-semibold text-[#1E1E1E] text-[0.85rem] leading-snug">{member.name}</p>
+          <p class="font-light text-[#807662] text-[0.75rem] mt-1 leading-snug">{member.role}</p>
+        </div>
+      ))
+    }
+  </div>
+
+  <!-- Mobile: touch swipe carousel -->
+  <div
+    class="flex md:hidden w-full overflow-x-auto snap-x snap-mandatory gap-4 pb-4"
+    data-no-nav
+    style="-webkit-overflow-scrolling: touch; scrollbar-width: none;"
+  >
+    {
+      team.map((member) => (
+        <div class="snap-start shrink-0 w-[75vw] text-center">
+          <div class="overflow-hidden aspect-square mb-3">
+            <Image
+              src={lawyerImages[member.imageKey]!}
+              alt={member.name}
+              width={240}
+              height={240}
+              class="w-full h-full object-cover grayscale"
+              loading="lazy"
+            />
+          </div>
+          <p class="font-semibold text-[#1E1E1E] text-[0.85rem] leading-snug">{member.name}</p>
+          <p class="font-light text-[#807662] text-[0.75rem] mt-1 leading-snug">{member.role}</p>
+        </div>
+      ))
+    }
+  </div>
+
+  <a
+    href="/landing#equipo"
+    class="mt-6 font-light text-[#807662] text-[0.85rem] tracking-wider hover:text-[#1E1E1E] transition-colors"
+    data-no-nav
+  >
+    Ver perfiles completos &rarr;
+  </a>
+</section>
+
+<script>
+  import { animate as _animate, stagger } from "motion";
+
+  type AnimFn = (
+    el: Element | NodeListOf<Element> | HTMLElement | null,
+    keyframes: Record<string, unknown>,
+    options?: Record<string, unknown>
+  ) => { then: (fn: () => void) => void };
+  const animate = _animate as unknown as AnimFn;
+
+  const section = document.querySelector("[data-section='5']");
+  section?.addEventListener(
+    "fp:enter",
+    () => {
+      const easing: [number, number, number, number] = [0.76, 0, 0.24, 1];
+
+      const headline = document.querySelector("[data-section='5'] [data-team-headline]");
+      const cards = document.querySelectorAll("[data-section='5'] [data-team-card]");
+
+      if (headline) {
+        animate(headline, { opacity: [0, 1] }, { duration: 0.6, easing });
+      }
+      if (cards.length) {
+        animate(
+          cards,
+          { opacity: [0, 1], transform: ["translateY(20px)", "translateY(0px)"] },
+          { duration: 0.7, delay: stagger(0.1), easing }
+        );
+      }
+    },
+    { once: true }
+  );
+</script>

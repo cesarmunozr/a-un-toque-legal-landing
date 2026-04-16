@@ -1,0 +1,27 @@
+---
+import { steps } from "../../data/site";
+---
+
+<section class="bg-[#1E1E1E] py-24 px-8 md:px-12 lg:px-20" id="como-trabajamos">
+  <div class="max-w-4xl mx-auto">
+    <h2 class="font-bold text-[#E0E0E0] text-[clamp(1.5rem,3vw,2rem)] mb-16 tracking-tight">
+      Cómo trabajamos.
+    </h2>
+
+    <ol class="space-y-0" role="list">
+      {
+        steps.map((step) => (
+          <li class="flex gap-8 md:gap-6 py-8 border-b border-[#807662]/30 last:border-b-0 group">
+            <span class="font-thin text-[#807662] text-[2.5rem] leading-none shrink-0 w-12 text-right">
+              {step.index}
+            </span>
+            <div class="flex-1 pt-2">
+              <h3 class="font-semibold text-[#E0E0E0] text-[1.1rem] leading-snug">{step.title}</h3>
+              <p class="mt-2 font-light text-[#C1B7A7] text-[0.9rem] leading-relaxed">{step.body}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>

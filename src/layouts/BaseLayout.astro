@@ -1,23 +1,24 @@
 ---
-import '@fontsource-variable/cormorant-garamond';
-import '@fontsource-variable/inter';
 import '../styles/global.css';
 
 interface Props {
   title?: string;
   description?: string;
   ogImage?: string;
+  robots?: string;
+  canonical?: string;
 }
 
 const {
   title = 'A un toque legal — Firma de Abogados Santiago, Chile',
-  description =
-    'Cisternas, Lorenzini & Saleh. Conocimiento jurídico de élite, entregado con la velocidad y precisión que su situación exige.',
+  description = 'Cisternas, Lorenzini & Saleh. Conocimiento jurídico de élite, entregado con la velocidad y precisión que su situación exige.',
   ogImage = '/og-default.jpg',
+  robots,
+  canonical,
 } = Astro.props;
 
 const siteUrl = Astro.site ?? new URL('https://auntoquelegal.cl');
-const canonicalURL = new URL(Astro.url.pathname, siteUrl);
+const canonicalURL = canonical ? new URL(canonical, siteUrl) : new URL(Astro.url.pathname, siteUrl);
 const ogImageURL = new URL(ogImage, siteUrl);
 ---
 
@@ -28,9 +29,14 @@ const ogImageURL = new URL(ogImage, siteUrl);
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
+    {robots && <meta name="robots" content={robots} />}
     <title>{title}</title>
     <link rel="canonical" href={canonicalURL} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <!-- Preload critical fonts -->
+    <link rel="preload" href="/fonts/Montserrat-Light.otf" as="font" type="font/otf" crossorigin="anonymous" />
+    <link rel="preload" href="/fonts/Montserrat-Black.otf" as="font" type="font/otf" crossorigin="anonymous" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -44,15 +50,13 @@ const ogImageURL = new URL(ogImage, siteUrl);
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageURL} />
+
+    <slot name="head" />
   </head>
-  <body
-    class="bg-paper text-ink font-sans antialiased"
-    style="padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom);"
-  >
-    <!-- Skip to content (accessible) -->
+  <body>
     <a
       href="#main"
-      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-ink focus:text-paper focus:px-4 focus:py-2 focus:text-xs focus:tracking-wider focus:font-sans"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-[#1E1E1E] focus:text-[#E0E0E0] focus:px-4 focus:py-2 focus:text-xs focus:tracking-wider"
     >
       Saltar al contenido
     </a>
@@ -60,82 +64,3 @@ const ogImageURL = new URL(ogImage, siteUrl);
     <slot />
   </body>
 </html>
-
-<script is:inline>
-  // ── Intersection Observer fade-in ──────────────────────────────────────────
-  (function () {
-    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var els = document.querySelectorAll('[data-fade]');
-
-    if (reduceMotion || !('IntersectionObserver' in window)) {
-      els.forEach(function (el) {
-        el.classList.add('is-visible');
-      });
-      return;
-    }
-
-    var observer = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12, rootMargin: '0px 0px -6% 0px' }
-    );
-
-    els.forEach(function (el) {
-      observer.observe(el);
-    });
-  })();
-
-  // ── Nav scroll state ────────────────────────────────────────────────────────
-  (function () {
-    var nav = document.querySelector('[data-nav]');
-    if (!nav) return;
-
-    function tick() {
-      if (window.scrollY > 24) {
-        nav.setAttribute('data-scrolled', '');
-      } else {
-        nav.removeAttribute('data-scrolled');
-      }
-    }
-
-    tick();
-    window.addEventListener('scroll', tick, { passive: true });
-  })();
-
-  // ── Mobile hamburger ────────────────────────────────────────────────────────
-  (function () {
-    var btn = document.querySelector('[data-nav-toggle]');
-    var menu = document.getElementById('mobile-menu');
-    if (!btn || !menu) return;
-
-    btn.addEventListener('click', function () {
-      var isOpen = btn.getAttribute('aria-expanded') === 'true';
-      btn.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
-      menu.hidden = isOpen;
-      document.documentElement.style.overflow = isOpen ? '' : 'hidden';
-    });
-
-    menu.addEventListener('click', function (e) {
-      if (e.target && e.target.tagName === 'A') {
-        btn.setAttribute('aria-expanded', 'false');
-        menu.hidden = true;
-        document.documentElement.style.overflow = '';
-      }
-    });
-
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && !menu.hidden) {
-        btn.setAttribute('aria-expanded', 'false');
-        menu.hidden = true;
-        document.documentElement.style.overflow = '';
-        btn.focus();
-      }
-    });
-  })();
-</script>

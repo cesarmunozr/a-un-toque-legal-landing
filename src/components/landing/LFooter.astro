@@ -1,0 +1,28 @@
+---
+import Logo from "../shared/Logo.astro";
+---
+
+<footer class="bg-[#1E1E1E] py-12 px-8 md:px-12 lg:px-20">
+  <div class="max-w-6xl mx-auto flex flex-col items-center text-center gap-6">
+    <Logo variant="dark" maxWidth={120} />
+
+    <nav aria-label="Footer" class="flex flex-wrap justify-center gap-6">
+      <a href="/landing#diferenciadores" class="font-light text-[#807662] text-[0.75rem] tracking-wider hover:text-[#C1B7A7] transition-colors">
+        Por qué elegirnos
+      </a>
+      <a href="/landing#areas" class="font-light text-[#807662] text-[0.75rem] tracking-wider hover:text-[#C1B7A7] transition-colors">
+        Áreas de práctica
+      </a>
+      <a href="/landing#equipo" class="font-light text-[#807662] text-[0.75rem] tracking-wider hover:text-[#C1B7A7] transition-colors">
+        El equipo
+      </a>
+      <a href="/landing#contacto" class="font-light text-[#807662] text-[0.75rem] tracking-wider hover:text-[#C1B7A7] transition-colors">
+        Contacto
+      </a>
+    </nav>
+
+    <p class="font-light text-[10px] text-[#807662]">
+      &copy; 2026 A un toque legal &mdash; Cisternas, Lorenzini &amp; Saleh. Santiago, Chile.
+    </p>
+  </div>
+</footer>
