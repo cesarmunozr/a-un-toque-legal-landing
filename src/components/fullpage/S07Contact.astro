@@ -10,12 +10,12 @@ import { contact } from "../../data/site";
   aria-hidden="true"
   id="s07-contact"
 >
-  <div class="grid grid-cols-1 md:grid-cols-2 h-full" data-no-nav>
+  <div class="overflow-y-auto md:overflow-hidden grid grid-cols-1 md:grid-cols-2 md:h-full" data-no-nav>
 
     <!-- Izquierda: info -->
-    <div class="overflow-y-auto px-8 py-10 md:px-12 md:py-12 flex flex-col justify-between h-full">
+    <div class="px-8 py-10 md:px-12 md:py-12 md:overflow-y-auto flex flex-col justify-between md:h-full">
       <!-- Contenido principal centrado -->
-      <div class="my-auto">
+      <div class="md:my-auto">
         <Logo variant="dark" maxWidth={140} />
 
         <div class="mt-8 border-l-2 border-[#807662] pl-5 space-y-3">
@@ -64,7 +64,7 @@ import { contact } from "../../data/site";
     </div>
 
     <!-- Derecha: formulario -->
-    <div class="overflow-y-auto px-8 py-10 md:px-12 md:py-12 border-t border-[#807662]/20 md:border-t-0 md:border-l flex flex-col justify-center h-full">
+    <div class="px-8 pb-10 pt-8 md:px-12 md:py-12 md:overflow-y-auto md:border-l border-t border-[#807662]/20 md:border-t-0 flex flex-col justify-center md:h-full">
       <ContactForm darkMode={true} />
     </div>
 

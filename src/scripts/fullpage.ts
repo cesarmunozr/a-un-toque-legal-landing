@@ -198,11 +198,18 @@ function bindListeners(): void {
     "touchend",
     (e) => {
       const t = e.target as HTMLElement;
-      if (t.closest("[data-no-nav]")) return;
       const dy = e.changedTouches[0].clientY - touchY0;
       const dx = e.changedTouches[0].clientX - touchX0;
       if (Math.abs(dy) < SWIPE_MIN) return;
       if (Math.abs(dx) > Math.abs(dy)) return;
+      const noNav = t.closest<HTMLElement>("[data-no-nav]");
+      if (noNav) {
+        const atTop    = noNav.scrollTop <= 0;
+        const atBottom = noNav.scrollTop + noNav.clientHeight >= noNav.scrollHeight - 1;
+        // swipe up (dy<0) = navegar adelante; swipe down (dy>0) = navegar atrás
+        if (dy < 0 && !atBottom) return;
+        if (dy > 0 && !atTop)    return;
+      }
       navigate(dy < 0 ? 1 : -1);
     },
     { passive: true }
